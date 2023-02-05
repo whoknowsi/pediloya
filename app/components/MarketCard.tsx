@@ -1,4 +1,5 @@
 import Image from "next/image"
+import ItemContainer from "./ItemContainer"
 
 interface Props {
   name: string
@@ -7,10 +8,12 @@ interface Props {
 
 const MarketCard = ({ name, img }: Props) => {
   return (
-    <div className="bg-white flex gap-3 p-3 rounded-lg cursor-pointer hover:scale-105 transition-transform duration-150 flex-1 max-w-lg min-w-fit">
-      <Image className="h-12 w-12 rounded border-black border" src={img} width="500" height="500" alt={`${name}-logo`} />
-      <p className="flex items-center">{name}</p>
-    </div>
+    <ItemContainer pointer hover flex>
+      <div className="flex gap-3 max-w-lg min-w-fit">
+        <Image className="h-12 w-12 rounded border-black border" src={img} width="500" height="500" alt={`${name}-logo`} />
+        <p className="flex items-center">{name}</p>
+      </div>
+    </ItemContainer>
   )
 }
 
