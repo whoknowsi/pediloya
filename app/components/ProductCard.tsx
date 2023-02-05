@@ -4,7 +4,11 @@ import ItemContainer from "./ItemContainer"
 interface Props {
   src: string,
   name: string,
-  price: [number, number?]
+  markets: {
+    name: string,
+    img: string,
+    price: number
+  }[]
 }
 
 const parcePrice = (price: number) => {
@@ -16,14 +20,27 @@ const parcePrice = (price: number) => {
     : price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."))
 }
 
-const ProductCard = ({ src, name, price }: Props) => {
+const ProductCard = ({ src, name, markets }: Props) => {
+
+  const priceRange = {
+    min: Math.min(...markets.map(({ price }) => price)),
+    max: Math.max(...markets.map(({ price }) => price))
+  }
+
   return (
     <ItemContainer flex pointer>
-      <div className="flex flex-col gap-4 max-w-xs">
+      <div className="flex flex-col gap-4 max-w-xs h-full">
         <Image className="self-center" src={src} width={100} height={100} alt={name} />
         <div className="flex flex-col gap-1">
-          <span className="tracking-wide">{`${parcePrice(price[0])}${price[1] ? (' - ' + parcePrice(price[1])) : ''}`}</span>
+          <span className="tracking-wide">{`${parcePrice(priceRange.min)}${priceRange.min !== priceRange.max ? (' - ' + parcePrice(priceRange.max)) : ''}`}</span>
           <span className="text-xs">{name}</span>
+        </div>
+        <div className="flex gap-1 items-end justify-end flex-1">
+          {markets.map((market) => {
+            return <div key={market.name + name} className="h-min">
+              <Image className="rounded-full hover:scale-105 transition-transform duration-150" src={market.img} alt={market.name} width={20} height={20} />
+            </div>
+          })}
         </div>
       </div>
     </ItemContainer>
