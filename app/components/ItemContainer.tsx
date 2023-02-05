@@ -3,17 +3,18 @@ interface Props {
   pointer?: boolean,
   hover?: boolean,
   flex?: boolean,
-  extraClass?: string 
+  extraClass?: string
 }
 
 const ItemContainer = ({ children, pointer = false, hover = false, flex = false, extraClass }: Props) => {
   return (
-    <article className={`bg-white rounded-lg p-3 
-      ${pointer ? 'cursor-pointer' : ''}
-      ${hover ? 'hover:scale-105 transition-transform duration-150' : ''}
-      ${flex ? 'flex-1' : ''}
-      ${extraClass}
-      `}
+    <article className={
+      "bg-white rounded-lg p-3" +
+      (pointer ? ' cursor-pointer' : '') +
+      (hover ? ' hover:scale-105 transition-transform duration-150' : '') +
+      (flex ? ' flex-1' : '') +
+      (extraClass ? ` ${extraClass}` : '')
+    }
     >{children}</article>
   )
 }
