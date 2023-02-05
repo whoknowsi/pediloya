@@ -3,6 +3,13 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: 'images.deliveryhero.io',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig
