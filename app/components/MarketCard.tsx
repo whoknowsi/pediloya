@@ -9,7 +9,7 @@ interface Props {
 const MarketCard = ({ name, img }: Props) => {
   return (
     <ItemContainer pointer hover flex>
-      <div className="flex gap-3 max-w-lg min-w-fit">
+      <div className="flex gap-3 max-w-lg min-w-max">
         <Image className="h-12 w-12 rounded border-black border" src={img} width="500" height="500" alt={`${name}-logo`} />
         <span className="flex items-center">{name}</span>
       </div>
