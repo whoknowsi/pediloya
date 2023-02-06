@@ -27,13 +27,16 @@ export default function Home() {
         <ProductCard
           name="Aceite En Aerosol Fritolim Girasol 120 G."
           src="https://images.deliveryhero.io/image/pedidosya/products/8c07b9a7-d04b-4e77-8752-c95f06e07648.jpg"
+          id='1'
           markets={[
             {
+              id: 'market1',
               name: 'Carrefour - Market Chilavert (203)',
               price: 520.10,
               img: 'https://images.deliveryhero.io/image/pedidosya/restaurants/carrefour-116-market-sta-fe-nuevo-jpg.png'
             },
             {
+              id: 'market2',
               name: 'Dia - Villa Ballester (204)',
               price: 530.2,
               img: 'https://images.deliveryhero.io/image/pedidosya/restaurants/logo-dia-supermercado-01.png'
@@ -43,13 +46,16 @@ export default function Home() {
         <ProductCard
           name="Aceite Lira Girasol 900 mL"
           src="https://images.deliveryhero.io/image/pedidosya/products/3618f835-bda5-4090-896d-16a3086ddeda.jpg"
+          id='2'
           markets={[
             {
+              id: 'market2',
               name: 'Dia - Villa Ballester (204)',
               price: 530,
               img: 'https://images.deliveryhero.io/image/pedidosya/restaurants/logo-dia-supermercado-01.png'
             },
             {
+              id: 'market1',
               name: 'Carrefour - Market Chilavert (203)',
               price: 504,
               img: 'https://images.deliveryhero.io/image/pedidosya/restaurants/carrefour-116-market-sta-fe-nuevo-jpg.png'
@@ -59,8 +65,10 @@ export default function Home() {
         <ProductCard
           name="Aceite De Girasol Pureza 1.5 L"
           src="https://images.deliveryhero.io/image/pedidosya/products/7792180137944.jpg"
+          id='3'
           markets={[
             {
+              id: 'market1',
               name: 'Carrefour - Market Chilavert (203)',
               price: 759,
               img: 'https://images.deliveryhero.io/image/pedidosya/restaurants/carrefour-116-market-sta-fe-nuevo-jpg.png'
