@@ -17,10 +17,18 @@ export default function Home() {
         <aside>
           <h2 className="font-bold w-36">Categorías</h2>
           <ul className="text-sm">
-            <li>Aguas</li>
-            <li>Aceites</li>
-            <li>Almacén</li>
-            <li>Gaseosas</li>
+            <li>
+              <a href="/aguas">Aguas</a>
+            </li>
+            <li>
+              <a href="/aceites">Aceites</a>
+            </li>
+            <li>
+              <a href="/almacen">Almacén</a>
+            </li>
+            <li>
+              <a href="/gaseosas">Gaseosas</a>
+            </li>
           </ul>
         </aside>
         <div className="flex flex-col justify-center items-center p-4 gap-4 max-w-5xl">
