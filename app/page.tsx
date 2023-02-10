@@ -1,6 +1,7 @@
 'use client'
 
 import CategoryCard from "./components/CategoryCard";
+import ItemContainer from "./components/ItemContainer";
 import MarketCard from "./components/MarketCard";
 import ProductCard from "./components/ProductCard";
 import SearchBar from "./components/SearchBar";
@@ -14,8 +15,9 @@ export default function Home() {
   return (
     <>
       <main className="flex justify-center p-4 gap-4 max-w-6xl mx-auto">
-        <aside>
-          <h2 className="font-bold w-36">Categorías</h2>
+        <ItemContainer>
+        <aside className="p-4 px-5 w-64">
+          <h2 className="font-bold">Categorías</h2>
           <ul className="text-sm">
             <li>
               <a href="/aguas">Aguas</a>
@@ -30,7 +32,8 @@ export default function Home() {
               <a href="/gaseosas">Gaseosas</a>
             </li>
           </ul>
-        </aside>
+          </aside>
+        </ItemContainer>
         <div className="flex flex-col justify-center items-center p-4 gap-4 max-w-5xl">
           <SearchBar handleSearch={handleSearch} />
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 justify-center w-full">
