@@ -9,7 +9,10 @@ module.exports = {
     extend: {
         screens: {
           'xs': '375px'
-        }
+        },
+        colors: {
+          'red-first': '#fa0050',
+        },
     },
   },
   plugins: [],
