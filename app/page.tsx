@@ -1,6 +1,7 @@
 'use client'
 
 import Image from "next/image";
+import Link from "next/link";
 import CategoryCard from "./components/CategoryCard";
 import ItemContainer from "./components/ItemContainer";
 import MarketCard from "./components/MarketCard";
@@ -16,13 +17,10 @@ export default function Home() {
   return (
     <>
       <header className="p-4 bg-white shadow-lg">
-        <div className="flex gap-1 items-center">
+        <Link className="flex gap-1 items-center cursor-pointer" href="/">
           <Image src="/logo.png" alt="logo" width="35" height="35"/>
-          <h1 className="text-2xl font-bold italic text-red-first">
-            
-            PediloYa
-          </h1>
-        </div>
+          <h1 className="text-2xl font-bold italic text-red-first">PediloYa</h1>
+        </Link>
       </header>
       <main className="flex justify-center p-4 gap-4 max-w-6xl mx-auto">
         <ItemContainer>
