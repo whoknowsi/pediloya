@@ -18,9 +18,9 @@ export default function Content() {
         <MarketCard img='https://pedidosya-api.whoknows.workers.dev/static/markets/63ccfa15aa705832ee236776.webp' name='Dia - Villa Ballester (204)' />
       </section>
       <section className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 flex-wrap justify-between gap-4 w-full">
-        <CategoryCard img='/placeholder-product.png' name='Aceites' />
-        <CategoryCard img='/placeholder-product.png' name='Aguas' />
-        <CategoryCard img='/placeholder-product.png' name='Alimentos saludables' />
+        <CategoryCard img='/images/placeholder-product.png' name='Aceites' />
+        <CategoryCard img='/images/placeholder-product.png' name='Aguas' />
+        <CategoryCard img='/images/placeholder-product.png' name='Alimentos saludables' />
       </section>
       <section className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 flex-wrap justify-between gap-4 w-full">
         <ProductCard
