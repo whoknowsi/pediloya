@@ -6,7 +6,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'images.deliveryhero.io',
+        hostname: 'pedidosya-api.whoknows.workers.dev',
       },
     ],
   },
