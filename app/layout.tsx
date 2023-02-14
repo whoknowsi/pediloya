@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 const poppins = Poppins({ weight: ['300', '400', '500', '600', '700'], subsets: ['latin'] })
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
@@ -23,7 +23,9 @@ export default function RootLayout({
             <h1 className="text-2xl font-bold italic text-red-first">PediloYa</h1>
           </Link>
         </header>
-        {children}
+        <main className="flex justify-center p-4 gap-4 max-w-6xl mx-auto"> 
+          {children}
+        </main>
       </body>
     </html>
   )
