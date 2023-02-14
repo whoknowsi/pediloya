@@ -1,3 +1,4 @@
+import { sortArray } from '@/app/utils/utils'
 const baseURL = process.env.NEXT_PUBLIC_BASE_API_URL
 
 type Props = {
@@ -80,7 +81,7 @@ export async function getProductsBy({ categoryId }: Props): Promise<Product[]> {
       })]
     } while (data.next)
 
-    return responseProducts
+    return sortArray(responseProducts)
   } catch (error: any) {
     console.log(error)
     throw new Error('Error fetching products')

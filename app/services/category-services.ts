@@ -1,10 +1,12 @@
+import { sortArray } from "@/app/utils/utils"
+
 const baseURL = process.env.NEXT_PUBLIC_BASE_API_URL
 
 export async function getCategories() {
   try {
     const response = await fetch(`${baseURL}/categories`)
     const data = await response.json()
-    return data
+    return sortArray(data)
   } catch (error: any) {
     throw new Error('Error fetching categories')
   }
