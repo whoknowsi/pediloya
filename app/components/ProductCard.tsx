@@ -1,5 +1,7 @@
+'use client'
+
 import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import ItemContainer from "./ItemContainer"
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
 import { HiOutlineTrash } from 'react-icons/hi2'
