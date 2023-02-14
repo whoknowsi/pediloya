@@ -9,7 +9,7 @@ interface Props {
 const ItemContainer = ({ children, pointer = false, hover = false, flex = false, extraClass }: Props) => {
   return (
     <article className={
-      "bg-white rounded-lg p-3" +
+      "bg-white rounded-lg p-3 h-fit" +
       (pointer ? ' cursor-pointer' : '') +
       (hover ? ' hover:scale-105 transition-transform duration-150' : '') +
       (flex ? ' flex-1' : '') +
