@@ -30,16 +30,10 @@ export default function Content({ markets, products }: Props) {
 
   const fetchData = () => {
     page.current = page.current + 1
-    console.log(page.current)
     setInfinityScrollProds(
       [...infinityScrollProds, ...searchedProds.slice(page.current * pageSize, (page.current + 1) * pageSize)]
     )
   }
-
-  useEffect(() => {
-    console.log(infinityScrollProds)
-  }, [infinityScrollProds])
-
 
   return (
     <div className="flex flex-col items-center p-4 gap-4 max-w-5xl">
