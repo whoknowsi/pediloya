@@ -1,9 +1,5 @@
 import { sortArray } from '@/app/utils/utils'
-const baseURL = process.env.NEXT_PUBLIC_BASE_API_URL
-
-type Props = {
-  categoryId: string
-}
+const baseURL = process.env.NEXT_PUBLIC_BASE_API_URL || ''
 
 export interface Product {
   id: string
@@ -44,7 +40,7 @@ export interface Response {
   next: string | null
 }
 
-export async function getProductsBy({ categoryId }: Props): Promise<Product[]> {
+export async function getProductsBy(categoryId?: string): Promise<Product[]> {
   try {
     let responseProducts:Product[] = []
     let response
@@ -59,8 +55,10 @@ export async function getProductsBy({ categoryId }: Props): Promise<Product[]> {
     }
     let products:Product[]
 
+    const filters = categoryId ? `&categoryId=${categoryId}` : ''
+
     do {
-      response = await fetch(data.next ? `${baseURL}${data.next}` :`${baseURL}/products?categoryId=${categoryId}&limit=20`)
+      response = await fetch(data.next ? `${baseURL}${data.next}` :`${baseURL}/products?limit=20${filters}`)
       data = await response.json()
       products = data.products
 
@@ -84,6 +82,6 @@ export async function getProductsBy({ categoryId }: Props): Promise<Product[]> {
     return sortArray(responseProducts)
   } catch (error: any) {
     console.log(error)
-    throw new Error('Error fetching products')
+    throw new Error('Error fetching products by categories')
   }
 }
