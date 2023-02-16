@@ -20,7 +20,7 @@ export default async function Category({ params }: Props) {
   let products:Product[] = []
 
   try {
-    products = await getProductsBy({ categoryId: id })
+    products = await getProductsBy(id)
   } catch(error) {
     console.log(error)
   }
