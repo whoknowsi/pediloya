@@ -72,7 +72,7 @@ const ProductCard = ({ src, name, id, markets }: Props) => {
   }
 
   return (
-    <ItemContainer flex>
+    <ItemContainer flex extraClass="h-auto">
       <div className="flex flex-col gap-4 max-w-xs h-full relative">
         {(selectedMarket || markets.length === 1) 
           && 
