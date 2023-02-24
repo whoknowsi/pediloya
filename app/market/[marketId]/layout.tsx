@@ -16,9 +16,8 @@ export default function RootLayout({ children, params }: Props) {
   const categories = use(getCategoriesBy({ marketId }))
   return (
     <>
-      <CategoryAside categories={categories} />
+      <CategoryAside categories={categories} marketId={marketId} />
       {children}
     </>
-    
   )
 }
