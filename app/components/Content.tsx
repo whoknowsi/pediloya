@@ -1,8 +1,8 @@
 'use client'
 
-import { use, useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { Market } from "../services/market-services"
-import { Product } from "../services/product-services"
+import { getProductsBy, Product, ProductServiceResponse } from "../services/product-services"
 import { removeTicksFrom } from "../utils/utils"
 import MarketCard from "./MarketCard"
 import ProductCard from "./ProductCard"
@@ -11,42 +11,31 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 type Props = {
   markets: Market[]
-  products: Product[]
 }
 
-export default function Content({ markets, products }: Props) {
-  const pageSize = 60
-  const [searchedProds, setSearchedProds] = useState<Product[]>([])
-  const [infinityScrollProds, setInfinityScrollProds] = useState<Product[]>([])
-  const page = useRef(0)
+export default function Content({ markets }: Props) {
+  const [productsServiceResponse, setProductsServiceResponse] = useState<ProductServiceResponse>()
 
-  const handleSearch = (value: string) => {
-    const prods = products
-      .filter((product) => value.split(' ').every((word) => removeTicksFrom(product.name.toLowerCase()).includes(removeTicksFrom(word.toLowerCase()))))
-    setSearchedProds(prods)
-    setInfinityScrollProds(prods.slice(0, pageSize))
-    page.current = 0
+  const handleSearch = async (search: string) => {
+    const response = await getProductsBy({ search, limit: 500 })
+    setProductsServiceResponse(response)
   }
 
-  const fetchData = () => {
-    page.current = page.current + 1
-    setInfinityScrollProds(
-      [...infinityScrollProds, ...searchedProds.slice(page.current * pageSize, (page.current + 1) * pageSize)]
-    )
+  const fetchData = async () => {
+    if(productsServiceResponse?.next) {
+      const response = await getProductsBy({ nextPage: productsServiceResponse.next })
+      setProductsServiceResponse(
+        {...response, products: productsServiceResponse.products.concat(response.products)}
+      )
+    }
   }
 
   return (
     <div className="flex flex-col items-center p-4 gap-4 max-w-5xl">
       <SearchBar handleSearch={handleSearch} />
-      {
-        infinityScrollProds.length > 0 ? (
-          <InfiniteScroll className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 flex-wrap justify-between gap-4 w-full"
-            dataLength={infinityScrollProds.length}
-            next={fetchData}
-            hasMore={infinityScrollProds.length !== searchedProds.length}
-            loader={<h4>Loading...</h4>}
-          >
-            {infinityScrollProds.map((product) => {
+      {productsServiceResponse?.products ? (
+          <section className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 flex-wrap justify-between gap-4 w-full">
+            {productsServiceResponse.products.map((product) => {
               const markets = product.prices.map(({ price, market }) => {
                 return {
                   id: market.id,
@@ -59,12 +48,11 @@ export default function Content({ markets, products }: Props) {
                 <ProductCard key={product.id} src={product.image} name={product.name} id={product.id} markets={markets} />
               )
             })}
-          </InfiniteScroll>
+          </section>
         ) : (
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 justify-center w-full">
             {markets.map(({ id, name, image }) => <MarketCard key={id} id={id} img={image} name={name} />)}
-          </section>)
-      }
+          </section>)}
     </div>
   )
 }

@@ -52,6 +52,7 @@ const fillImagesOnProducts = (products: Product[]): Product[] => {
 type Props = {
   categoryId?: string,
   marketId?: string,
+  search?: string,
   offset?: number,
   limit?: number,
   nextPage?: string | null,
@@ -65,16 +66,20 @@ export type ProductServiceResponse = {
   next: string | null
 }
 
-export async function getProductsBy({ categoryId, marketId, offset = 0, limit = 20, nextPage = null, prevPage = null }: Props): Promise<ProductServiceResponse> {
+export async function getProductsBy({ categoryId, marketId, search, offset = 0, limit = 20, nextPage = null, prevPage = null }: Props): Promise<ProductServiceResponse> {
   try {
-    const filters = 
-      categoryId 
-        ? marketId 
-          ? `categoryId=${categoryId}&marketId=${marketId}`
-          : `categoryId=${categoryId}`
-        : ''
+    const filters = [] 
+    if (categoryId) filters.push(`categoryId=${categoryId}`)
+    if (marketId) filters.push(`marketId=${marketId}`)
+    if (search) filters.push(`search=${search}`)
 
-    const url = nextPage ? `${baseURL}${nextPage}` : prevPage ? `${baseURL}${prevPage}` : `${baseURL}/products?limit=${limit}&offset=${offset}&${filters}`
+    const url = nextPage 
+      ? `${baseURL}${nextPage}` 
+      : prevPage 
+        ? `${baseURL}${prevPage}` 
+        : `${baseURL}/products?limit=${limit}&offset=${offset}&${filters.join('&')}`
+
+    console.log(url )
 
     const response = await fetch(url)
     const data = await response.json()
