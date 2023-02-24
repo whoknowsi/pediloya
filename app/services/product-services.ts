@@ -30,60 +30,63 @@ export interface Market {
   image: string
 }
 
-export interface Response {
+const fillImagesOnProducts = (products: Product[]): Product[] => {
+  return products.map(({ image, prices, ...product }) => {
+    return {
+      ...product,
+      image: `${image ? (baseURL + image) : '/images/placeholder-product.png'}`,
+      prices: prices.map(({ market, ...price}) => {
+        return {
+          ...price,
+          market: {
+            ...market,
+            image: `${market.image ? (baseURL + market.image) : '/images/placeholder-product.png'}`,
+          }
+        }
+      })
+    }
+  })
+}
+
+
+type Props = {
+  categoryId?: string,
+  marketId?: string,
+  offset?: number,
+  limit?: number,
+  nextPage?: string | null,
+  prevPage?: string | null
+}
+
+export type ProductServiceResponse = {
   products: Product[],
-  offset: number,
-  limit: number,
-  count: number,
   max: number,
   prev: string | null,
   next: string | null
 }
 
-type Props = {
-  categoryId?: string
-}
-
-export async function getProductsBy({ categoryId }: Props): Promise<Product[]> {
+export async function getProductsBy({ categoryId, marketId, offset = 0, limit = 20, nextPage = null, prevPage = null }: Props): Promise<ProductServiceResponse> {
   try {
-    let responseProducts:Product[] = []
-    let response
-    let data: Response = {
-      products: [],
-      offset: 0,
-      limit: 0,
-      count: 0,
-      max: 0,
-      prev: null,
-      next: null
-    }
-    let products:Product[]
+    const filters = 
+      categoryId 
+        ? marketId 
+          ? `categoryId=${categoryId}&marketId=${marketId}`
+          : `categoryId=${categoryId}`
+        : ''
 
-    const filters = categoryId ? `&categoryId=${categoryId}` : ''
+    const url = nextPage ? `${baseURL}${nextPage}` : prevPage ? `${baseURL}${prevPage}` : `${baseURL}/products?limit=${limit}&offset=${offset}&${filters}`
 
-    do {
-      response = await fetch(data.next ? `${baseURL}${data.next}` :`${baseURL}/products?limit=20${filters}`)
-      data = await response.json()
-      products = data.products
+    const response = await fetch(url)
+    const data = await response.json()
+    const { products, prev, next, max } = data
 
-      responseProducts = [...responseProducts, ...products.map(({ image, prices, ...product }) => {
-        return {
-          ...product,
-          image: `${image ? (baseURL + image) : '/images/placeholder-product.png'}`,
-          prices: prices.map(({ market, ...price}) => {
-            return {
-              ...price,
-              market: {
-                ...market,
-                image: `${market.image ? (baseURL + market.image) : '/images/placeholder-product.png'}`,
-              }
-            }
-          })
-        }
-      })]
-    } while (data.next)
+  return {
+    products: fillImagesOnProducts(products),
+    max,
+    prev,
+    next
+  }
 
-    return sortArray(responseProducts)
   } catch (error: any) {
     console.log(error)
     throw new Error('Error fetching products by categories')
