@@ -11,7 +11,7 @@ export async function getCategories() {
   try {
     const response = await fetch(`${baseURL}/categories`)
     const data = await response.json()
-    return sortArray(data)
+    return sortArray(data.categories)
   } catch (error: any) {
     throw new Error('Error fetching categories')
   }
