@@ -12,7 +12,7 @@ export default async function Home() {
 
   try {
     markets = await getMarkets()
-    products = await getProductsBy()
+    products = await getProductsBy({})
   } catch(error) {
     console.log(error)
   }
