@@ -1,13 +1,15 @@
 import ItemContainer from "./ItemContainer"
 import Link from "next/link"
 import { Suspense } from "react"
-import { Category } from "../category/[id]/page"
+import { Category } from "../services/product-services"
+
 
 type Props = {
-  categories: Category[]
+  categories: Category[],
+  marketId?: string
 }
 
-export default function CategoryAside({ categories }: Props) {
+export default function CategoryAside({ categories, marketId }: Props) {
   return (
     <ItemContainer>
       <aside className="p-4 px-5 w-64">
@@ -18,7 +20,7 @@ export default function CategoryAside({ categories }: Props) {
               categories.map(({ id, name }) => {
                 return (
                   <li key={id}>
-                    <Link href={`/category/${id}`}>{name}</Link>
+                    <Link href={marketId ? `/market/${marketId}/category/${id}` : `/category/${id}`}>{name}</Link>
                   </li>
                 )
               })
