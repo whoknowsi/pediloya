@@ -40,7 +40,11 @@ export interface Response {
   next: string | null
 }
 
-export async function getProductsBy(categoryId?: string): Promise<Product[]> {
+type Props = {
+  categoryId?: string
+}
+
+export async function getProductsBy({ categoryId }: Props): Promise<Product[]> {
   try {
     let responseProducts:Product[] = []
     let response
