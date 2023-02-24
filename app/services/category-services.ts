@@ -2,6 +2,11 @@ import { sortArray } from "@/app/utils/utils"
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_API_URL
 
+type Category =  {
+  id: string;
+  name: string;
+}
+
 export async function getCategories() {
   try {
     const response = await fetch(`${baseURL}/categories`)
@@ -16,7 +21,7 @@ type Props = {
   marketId: string | undefined
 }
 
-export async function getCategoriesBy({ marketId }: Props) {
+export async function getCategoriesBy({ marketId }: Props): Promise<Category[]> {
   try {
     const response = await fetch(`${baseURL}/categories${marketId ? ('?marketId=' + marketId) : ''}`)
     const data = await response.json()
