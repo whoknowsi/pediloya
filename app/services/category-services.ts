@@ -12,11 +12,15 @@ export async function getCategories() {
   }
 }
 
-export async function getCategoriesBy(marketId: string) {
+type Props = {
+  marketId: string | undefined
+}
+
+export async function getCategoriesBy({ marketId }: Props) {
   try {
-    const response = await fetch(`${baseURL}/categories/${marketId}`)
+    const response = await fetch(`${baseURL}/categories${marketId ? ('?marketId=' + marketId) : ''}`)
     const data = await response.json()
-    return data
+    return data.categories
   } catch (error: any) {
     throw new Error(`Error fetching category ${marketId}`)
   }

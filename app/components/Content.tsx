@@ -62,7 +62,7 @@ export default function Content({ markets, products }: Props) {
           </InfiniteScroll>
         ) : (
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 justify-center w-full">
-            {markets.map(({ id, name, image }) => <MarketCard key={id} img={image} name={name} />)}
+            {markets.map(({ id, name, image }) => <MarketCard key={id} id={id} img={image} name={name} />)}
           </section>)
       }
     </div>
